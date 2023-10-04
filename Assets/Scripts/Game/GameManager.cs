@@ -40,7 +40,7 @@ namespace Microbiopori
         // Update is called once per frame
         void Update()
         {
-            UpdateScore();
+            //UpdateScore();
         }
 
         void InitializeGame()
@@ -53,9 +53,10 @@ namespace Microbiopori
             scoreText.text = "Score: " + gameScore.ToString();
         }
 
-        void AddScore(int score)
+        public void AddScore(int score)
         {
             gameScore += score;
+            UpdateScore();
         }
 
         // Call this function to handle game over logic.

@@ -1,45 +1,40 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+namespace Microbiopori
 {
-    public float moveSpeed = 3f; // Enemy movement speed.
-    public int damageAmount = 10; // Amount of damage the enemy inflicts on the player.
-
-    private Transform player; // Reference to the player's Transform.
-    private bool isFollowingPlayer = false;
-
-    private void Start()
+    public class Enemy : MonoBehaviour
     {
-        // Find the player GameObject and store its Transform.
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        public EnemyData enemyData; // Reference to the EnemyData Scriptable Object.
 
-        // Start following the player.
-        isFollowingPlayer = true;
-    }
+        protected int currentHealth;
 
-    private void Update()
-    {
-        if (isFollowingPlayer && player != null)
+        protected virtual void Start()
         {
-            // Move towards the player.
-            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+            currentHealth = enemyData.maxHealth;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if the enemy collides with the player.
-        if (other.CompareTag("Player"))
+        public virtual void TakeDamage(int damageAmount)
         {
-            // Deal damage to the player.
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (currentHealth > 0)
             {
-                playerHealth.TakeDamage(damageAmount);
-            }
+                currentHealth -= damageAmount;
+                currentHealth = Mathf.Clamp(currentHealth, 0, enemyData.maxHealth);
 
-            // Destroy the enemy on contact with the player.
-            Destroy(gameObject);
+                if (currentHealth <= 0)
+                {
+                    Die();
+                }
+            }
+        }
+
+        protected virtual void Die()
+        {
+            // Implement enemy death logic here.
+            // Play the death sound from the enemyData if specified.
+            if (enemyData.deathSound != null)
+            {
+                AudioSource.PlayClipAtPoint(enemyData.deathSound, transform.position);
+            }
         }
     }
 }

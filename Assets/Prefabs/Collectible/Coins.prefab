@@ -172,4 +172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 10
+  healthIncrease: 1
   collectSound: {fileID: 0}
+  onPlayerCollect: {fileID: 11400000, guid: b1789ca3428eafb45badab7daf3f8b27, type: 2}

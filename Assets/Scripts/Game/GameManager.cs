@@ -7,7 +7,8 @@ namespace Microbiopori
 { 
     public class GameManager : MonoBehaviour
     {
-        public static GameManager instance; // Singleton pattern to ensure only one instance exists.
+        private static GameManager _instance;
+        public static GameManager Instance => _instance;
 
         [Header("Game Parameters")]
         [SerializeField] private int gameScore;
@@ -20,11 +21,11 @@ namespace Microbiopori
         private void Awake()
         {
             // Implementing the Singleton pattern.
-            if (instance == null)
+            if (_instance == null)
             {
-                instance = this;
+                _instance = this;
             }
-            else if (instance != this)
+            else if (_instance != this)
             {
                 Destroy(gameObject);
             }
@@ -50,7 +51,10 @@ namespace Microbiopori
 
         void UpdateScore()
         {
-            scoreText.text = "Score: " + gameScore.ToString();
+            if (scoreText != null)
+            {
+                scoreText.text = "Score: " + gameScore.ToString();
+            }
         }
 
         public void AddScore(int score)

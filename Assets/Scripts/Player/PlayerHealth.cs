@@ -1,24 +1,33 @@
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int maxHealth = 100; // Maximum health of the player.
-    public int currentHealth; // Current health of the player.
+    public int currentHealth;
 
-    // Events to handle health changes and player death.
-    public delegate void HealthChangedDelegate(int currentHealth, int maxHealth);
-    public event HealthChangedDelegate OnHealthChanged;
-    public delegate void PlayerDeathDelegate();
-    public event PlayerDeathDelegate OnPlayerDeath;
+    public Text healthUI;
+    public Slider healthSlider;
+
+    // UnityEvents to handle health changes and player death.
+    public UnityEvent<int, int> OnHealthChangedEvent = new UnityEvent<int, int>();
+    public UnityEvent OnPlayerDeathEvent = new UnityEvent();
+
+    private const int maxHealth = 10;
 
     private void Start()
     {
-        // Initialize the player's health.
-        currentHealth = maxHealth;
+        InitializeHealth();
         UpdateHealthUI();
     }
 
-    // Call this function to apply damage to the player.
+    private void InitializeHealth()
+    {
+        currentHealth = maxHealth;
+        healthUI.text = "Health : " + currentHealth.ToString();
+        healthSlider.value = currentHealth;
+    }
+
     public void TakeDamage(int damageAmount)
     {
         if (currentHealth > 0)
@@ -26,10 +35,9 @@ public class PlayerHealth : MonoBehaviour
             currentHealth -= damageAmount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-            // Trigger the health changed event.
-            UpdateHealthUI();
+            // Trigger the health changed UnityEvent.
+            OnHealthChangedEvent.Invoke(currentHealth, maxHealth);
 
-            // Check if the player has died.
             if (currentHealth <= 0)
             {
                 Die();
@@ -37,36 +45,31 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    // Call this function to heal the player.
     public void Heal(int healAmount)
     {
         if (currentHealth > 0)
         {
             currentHealth += healAmount;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            //currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            healthUI.text = "Health : " + currentHealth.ToString();
+            healthSlider.value = currentHealth;
 
-            // Trigger the health changed event.
-            UpdateHealthUI();
+            // Trigger the health changed UnityEvent.
+            OnHealthChangedEvent.Invoke(currentHealth, maxHealth);
+
+            Debug.Log("Heal");
         }
     }
 
-    // Handle player death.
     private void Die()
     {
-        // Trigger the player death event.
-        if (OnPlayerDeath != null)
-        {
-            OnPlayerDeath();
-        }
+        // Trigger the player death UnityEvent.
+        OnPlayerDeathEvent.Invoke();
     }
 
-    // Update the UI or perform other actions when health changes.
     private void UpdateHealthUI()
     {
-        // Trigger the health changed event.
-        if (OnHealthChanged != null)
-        {
-            OnHealthChanged(currentHealth, maxHealth);
-        }
+        // Trigger the health changed UnityEvent.
+        OnHealthChangedEvent.Invoke(currentHealth, maxHealth);
     }
 }

@@ -6,6 +6,10 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private float horizontalInput;
 
+    // Variables for touch input.
+    private Vector2 touchStartPos;
+    private bool isSwiping = false;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -13,8 +17,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        // Handle touch input.
+        HandleTouchInput();
+
         // Get horizontal input from the player (e.g., left and right arrow keys or A and D keys).
-        horizontalInput = Input.GetAxis("Horizontal");
+        // Only use this input if no swipe is detected.
+        if (!isSwiping)
+        {
+            horizontalInput = Input.GetAxis("Horizontal");
+        }
     }
 
     private void FixedUpdate()
@@ -32,5 +43,31 @@ public class PlayerController : MonoBehaviour
         rb.velocity = movement;
 
         // You can also add jumping logic or other interactions here.
+    }
+
+    private void HandleTouchInput()
+    {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    touchStartPos = touch.position;
+                    isSwiping = true;
+                    break;
+
+                case TouchPhase.Moved:
+                    float swipeDeltaX = touch.position.x - touchStartPos.x;
+                    horizontalInput = swipeDeltaX * 0.01f; // Adjust the sensitivity if needed.
+                    break;
+
+                case TouchPhase.Ended:
+                    isSwiping = false;
+                    horizontalInput = 0f;
+                    break;
+            }
+        }
     }
 }

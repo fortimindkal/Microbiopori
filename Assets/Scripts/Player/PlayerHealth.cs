@@ -1,75 +1,72 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 
-public class PlayerHealth : MonoBehaviour
+namespace Microbiopori
 {
-    public int currentHealth;
-
-    public Text healthUI;
-    public Slider healthSlider;
-
-    // UnityEvents to handle health changes and player death.
-    public UnityEvent<int, int> OnHealthChangedEvent = new UnityEvent<int, int>();
-    public UnityEvent OnPlayerDeathEvent = new UnityEvent();
-
-    private const int maxHealth = 10;
-
-    private void Start()
+    public class PlayerHealth : MonoBehaviour
     {
-        InitializeHealth();
-        UpdateHealthUI();
-    }
+        public int currentHealth;
 
-    private void InitializeHealth()
-    {
-        currentHealth = maxHealth;
-        healthUI.text = "Health : " + currentHealth.ToString();
-        healthSlider.value = currentHealth;
-    }
+        public Text healthUI;
+        public Slider healthSlider;
 
-    public void TakeDamage(int damageAmount)
-    {
-        if (currentHealth > 0)
+        public GameEvent onPlayerDeathEvent;
+
+        private const int maxHealth = 10;
+
+        private void Start()
         {
-            currentHealth -= damageAmount;
-            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            onPlayerDeathEvent.OnEventTriggered.AddListener(GameManager.Instance.GameOver);
 
-            // Trigger the health changed UnityEvent.
-            OnHealthChangedEvent.Invoke(currentHealth, maxHealth);
-
-            if (currentHealth <= 0)
-            {
-                Die();
-            }
+            InitializeHealth();
+            UpdateHealthUI();
         }
-    }
 
-    public void Heal(int healAmount)
-    {
-        if (currentHealth > 0)
+        private void InitializeHealth()
         {
-            currentHealth += healAmount;
-            //currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            currentHealth = maxHealth;
             healthUI.text = "Health : " + currentHealth.ToString();
             healthSlider.value = currentHealth;
+        }
 
+        public void TakeDamage(int damageAmount)
+        {
+            if (currentHealth > 0)
+            {
+                currentHealth -= damageAmount;
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+                if (currentHealth <= 0)
+                {
+                    Die();
+                }
+            }
+        }
+
+        public void Heal(int healAmount)
+        {
+            if (currentHealth > 0)
+            {
+                currentHealth += healAmount;
+                //currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+                healthUI.text = "Health : " + currentHealth.ToString();
+                healthSlider.value = currentHealth;
+
+                Debug.Log("Heal");
+            }
+        }
+
+        private void Die()
+        {
+            // Trigger the player death UnityEvent.
+            onPlayerDeathEvent.TriggerEvent();
+        }
+
+        public void UpdateHealthUI()
+        {
             // Trigger the health changed UnityEvent.
-            OnHealthChangedEvent.Invoke(currentHealth, maxHealth);
-
-            Debug.Log("Heal");
+            healthSlider.value = currentHealth;
         }
     }
-
-    private void Die()
-    {
-        // Trigger the player death UnityEvent.
-        OnPlayerDeathEvent.Invoke();
-    }
-
-    private void UpdateHealthUI()
-    {
-        // Trigger the health changed UnityEvent.
-        OnHealthChangedEvent.Invoke(currentHealth, maxHealth);
-    }
 }
+

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Microbiopori
 { 
@@ -17,6 +18,7 @@ namespace Microbiopori
         [Header("Game User-Interface")]
         [SerializeField] private GameObject gameOverUI;
         [SerializeField] private Text scoreText;
+        [SerializeField] private Text resultScoreText;
 
         private void Awake()
         {
@@ -80,7 +82,18 @@ namespace Microbiopori
             if (gameOverUI != null)
             {
                 gameOverUI.SetActive(true);
+                resultScoreText.text = scoreText.text;
             }
+        }
+
+        public void HomeButton()
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        public void RetryButton()
+        {
+            SceneManager.LoadScene(1);
         }
     }
 }

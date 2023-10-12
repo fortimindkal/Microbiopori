@@ -8,9 +8,17 @@ namespace Microbiopori
 
         protected int currentHealth;
 
+        public GameEvent onEnemyAttack;
+
         protected virtual void Start()
         {
+            onEnemyAttack.OnEventTriggered.AddListener(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().UpdateHealthUI);
             currentHealth = enemyData.maxHealth;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            onEnemyAttack.OnEventTriggered.RemoveListener(GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>().UpdateHealthUI);
         }
 
         public virtual void TakeDamage(int damageAmount)
@@ -34,6 +42,25 @@ namespace Microbiopori
             if (enemyData.deathSound != null)
             {
                 AudioSource.PlayClipAtPoint(enemyData.deathSound, transform.position);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            // Check if the enemy collides with the player.
+            if (other.CompareTag("Player"))
+            {
+                // Deal damage to the player.
+                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(enemyData.damage);
+                }
+
+                onEnemyAttack.TriggerEvent();
+
+                // Destroy the enemy on contact with the player.
+                Destroy(gameObject);
             }
         }
     }

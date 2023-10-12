@@ -1,45 +1,49 @@
 using UnityEngine;
 
-public class EnemyBackup : MonoBehaviour
+namespace Microbiopori
 {
-    public float moveSpeed = 3f; // Enemy movement speed.
-    public int damageAmount = 10; // Amount of damage the enemy inflicts on the player.
-
-    private Transform player; // Reference to the player's Transform.
-    private bool isFollowingPlayer = false;
-
-    private void Start()
+    public class EnemyBackup : MonoBehaviour
     {
-        // Find the player GameObject and store its Transform.
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        public float moveSpeed = 3f; // Enemy movement speed.
+        public int damageAmount = 10; // Amount of damage the enemy inflicts on the player.
 
-        // Start following the player.
-        isFollowingPlayer = true;
-    }
+        private Transform player; // Reference to the player's Transform.
+        private bool isFollowingPlayer = false;
 
-    private void Update()
-    {
-        if (isFollowingPlayer && player != null)
+        private void Start()
         {
-            // Move towards the player.
-            transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
+            // Find the player GameObject and store its Transform.
+            player = GameObject.FindGameObjectWithTag("Player").transform;
+
+            // Start following the player.
+            isFollowingPlayer = true;
         }
-    }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        // Check if the enemy collides with the player.
-        if (other.CompareTag("Player"))
+        private void Update()
         {
-            // Deal damage to the player.
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (isFollowingPlayer && player != null)
             {
-                playerHealth.TakeDamage(damageAmount);
+                // Move towards the player.
+                transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
             }
+        }
 
-            // Destroy the enemy on contact with the player.
-            Destroy(gameObject);
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            // Check if the enemy collides with the player.
+            if (other.CompareTag("Player"))
+            {
+                // Deal damage to the player.
+                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                if (playerHealth != null)
+                {
+                    playerHealth.TakeDamage(damageAmount);
+                }
+
+                // Destroy the enemy on contact with the player.
+                Destroy(gameObject);
+            }
         }
     }
 }
+

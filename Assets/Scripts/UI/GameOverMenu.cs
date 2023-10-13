@@ -5,13 +5,5 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
-    public void HomeButton()
-    {
-        SceneManager.LoadScene(0);
-    }
-
-    public void RetryButton()
-    {
-        SceneManager.LoadScene(1);
-    }
+    
 }

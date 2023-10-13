@@ -4,6 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     public float moveSpeed = 5f; // Adjust the player's movement speed in the Inspector.
     private Rigidbody2D rb;
+    private Animator anim;
     private float horizontalInput;
 
     // Variables for touch input.
@@ -13,6 +14,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -26,6 +28,18 @@ public class PlayerController : MonoBehaviour
         {
             horizontalInput = Input.GetAxis("Horizontal");
         }
+
+        if (horizontalInput > 0.01f)
+        {
+            transform.localScale = Vector3.one;
+        }
+        else if (horizontalInput < -0.01f)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+
+        //Set Animator
+        anim.SetBool("isMove", horizontalInput != 0);
     }
 
     private void FixedUpdate()
@@ -43,6 +57,11 @@ public class PlayerController : MonoBehaviour
         rb.velocity = movement;
 
         // You can also add jumping logic or other interactions here.
+    }
+
+    public void SetPlayerDead()
+    {
+        anim.SetTrigger("isDead");
     }
 
     private void HandleTouchInput()

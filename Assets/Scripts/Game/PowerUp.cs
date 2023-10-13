@@ -8,6 +8,13 @@ namespace Microbiopori
         public float duration = 10f; // Duration of the power-up.
         public AudioClip powerUpSound; // Sound to play when the power-up is picked up.
 
+        public GameEvent onPlayerPickPowerup;
+
+        private void Start()
+        {
+            onPlayerPickPowerup.OnEventTriggered.AddListener()
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             // Check if the power-up has collided with the player (or another object with a specific tag).

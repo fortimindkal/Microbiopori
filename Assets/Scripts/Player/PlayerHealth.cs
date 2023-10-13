@@ -16,7 +16,8 @@ namespace Microbiopori
 
         private void Start()
         {
-            onPlayerDeathEvent.OnEventTriggered.AddListener(GameManager.Instance.GameOver);
+            //onPlayerDeathEvent.OnEventTriggered.AddListener(GameManager.Instance.GameOver);
+            onPlayerDeathEvent.OnEventTriggered.AddListener(GetComponent<PlayerController>().SetPlayerDead);
 
             InitializeHealth();
             UpdateHealthUI();

@@ -7,10 +7,10 @@ namespace Microbiopori
     {
         public int currentHealth;
 
-        public Text healthUI;
         public Slider healthSlider;
 
         public GameEvent onPlayerDeathEvent;
+        public GameEvent onPlayerTakeDamage;
 
         private const int maxHealth = 10;
 
@@ -18,6 +18,7 @@ namespace Microbiopori
         {
             //onPlayerDeathEvent.OnEventTriggered.AddListener(GameManager.Instance.GameOver);
             onPlayerDeathEvent.OnEventTriggered.AddListener(GetComponent<PlayerController>().SetPlayerDead);
+            onPlayerTakeDamage.OnEventTriggered.AddListener(GetComponent<PlayerController>().SetPlayerDamaged);
 
             InitializeHealth();
             UpdateHealthUI();
@@ -26,7 +27,6 @@ namespace Microbiopori
         private void InitializeHealth()
         {
             currentHealth = maxHealth;
-            healthUI.text = "Health : " + currentHealth.ToString();
             healthSlider.value = currentHealth;
         }
 
@@ -36,6 +36,7 @@ namespace Microbiopori
             {
                 currentHealth -= damageAmount;
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+                onPlayerTakeDamage.TriggerEvent();
 
                 if (currentHealth <= 0)
                 {
@@ -49,8 +50,7 @@ namespace Microbiopori
             if (currentHealth > 0)
             {
                 currentHealth += healAmount;
-                //currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
-                healthUI.text = "Health : " + currentHealth.ToString();
+                currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
                 healthSlider.value = currentHealth;
 
                 Debug.Log("Heal");

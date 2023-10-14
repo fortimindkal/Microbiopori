@@ -35,9 +35,18 @@ namespace Microbiopori
             {
                 // Deal damage to the player.
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                PlayerShield playerShield = other.GetComponent<PlayerShield>();
                 if (playerHealth != null)
                 {
-                    playerHealth.TakeDamage(damageAmount);
+                    if(!playerShield.IsShieldActive())
+                    {
+                        playerHealth.TakeDamage(damageAmount);
+                        Debug.Log("Take Damage");
+                    }
+                    else
+                    {
+                        playerShield.DeactivateShield();
+                    }
                 }
 
                 // Destroy the enemy on contact with the player.

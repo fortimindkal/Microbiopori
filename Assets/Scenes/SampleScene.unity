@@ -245,11 +245,15 @@ PrefabInstance:
     - target: {fileID: 4775847411904417590, guid: efc512b7ab4ab7a45aecaf5d5ada36bc, type: 3}
       propertyPath: healthUI
       value: 
-      objectReference: {fileID: 797780394}
+      objectReference: {fileID: 0}
     - target: {fileID: 4775847411904417590, guid: efc512b7ab4ab7a45aecaf5d5ada36bc, type: 3}
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 1392911435}
+    - target: {fileID: 4775847411904417590, guid: efc512b7ab4ab7a45aecaf5d5ada36bc, type: 3}
+      propertyPath: onPlayerTakeDamage
+      value: 
+      objectReference: {fileID: 11400000, guid: 354823cc2f4046a4e93170e654299eab, type: 2}
     - target: {fileID: 6330084455115217721, guid: efc512b7ab4ab7a45aecaf5d5ada36bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -595,6 +599,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -690,6 +695,102 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 814163817}
   smoothSpeed: 4.71
+--- !u!82 &519420034
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300002, guid: e72d46a44be1b2b4d85d1069d6b8427a, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 8a756021d997624489501c3ab6252f1f, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &548858840
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,6 +839,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &690092922 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6330084455115217723, guid: efc512b7ab4ab7a45aecaf5d5ada36bc, type: 3}
+  m_PrefabInstance: {fileID: 209889388}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &746849386
 GameObject:
   m_ObjectHideFlags: 0
@@ -812,85 +918,6 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 746849386}
-  m_CullTransparentMesh: 1
---- !u!1 &797780392
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 797780393}
-  - component: {fileID: 797780395}
-  - component: {fileID: 797780394}
-  m_Layer: 5
-  m_Name: HealthUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &797780393
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797780392}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 973569424}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 18, y: -25}
-  m_SizeDelta: {x: 246.9632, y: 30}
-  m_Pivot: {x: 0, y: 1}
---- !u!114 &797780394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797780392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: e6dbe733ea4a63544a000fcfe851f004, type: 3}
-    m_FontSize: 36
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: 'Health : 0'
---- !u!222 &797780395
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 797780392}
   m_CullTransparentMesh: 1
 --- !u!1 &814163814
 GameObject:
@@ -1080,9 +1107,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentHealth: 0
-  healthUI: {fileID: 797780394}
   healthSlider: {fileID: 1392911435}
   onPlayerDeathEvent: {fileID: 11400000, guid: 5317746d45af7024b8056df6668fbe27, type: 2}
+  onPlayerTakeDamage: {fileID: 0}
 --- !u!114 &814163821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1108,6 +1135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 237be0c459e2661418a6d42f9b60a4c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shieldDuration: 10
 --- !u!1 &862865589
 GameObject:
   m_ObjectHideFlags: 0
@@ -1326,7 +1354,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 797780393}
   - {fileID: 901444006}
   - {fileID: 1590610509}
   - {fileID: 398454931}
@@ -2352,6 +2379,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration: 10
   powerUpSound: {fileID: 0}
+  onPlayerPickPowerup: {fileID: 0}
 --- !u!212 &1644403037
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2672,6 +2700,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coins
       objectReference: {fileID: 0}
+    - target: {fileID: 1142193516914468158, guid: c2ef40358a7ffce4e88bc18afef82b49, type: 3}
+      propertyPath: m_TagString
+      value: Collectible
+      objectReference: {fileID: 0}
+    - target: {fileID: 3104987480302361528, guid: c2ef40358a7ffce4e88bc18afef82b49, type: 3}
+      propertyPath: anim
+      value: 
+      objectReference: {fileID: 690092922}
     - target: {fileID: 6149724969389131134, guid: c2ef40358a7ffce4e88bc18afef82b49, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.42

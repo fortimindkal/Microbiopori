@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,6 +9,7 @@ namespace Microbiopori
         public int points = 10; // The number of points the collectible gives to the player when collected.
         public int healthIncrease = 1; // The amount to increase the player's health.
         public AudioClip collectSound; // Sound to play when the collectible is picked up.
+        public Animator anim;
 
         public GameEvent onPlayerCollect;
 
@@ -53,6 +55,16 @@ namespace Microbiopori
         public void CoinCollect()
         {
             GameManager.Instance.AddScore(points);
-        }
+            Debug.Log("Add Score");
+        }   
+
+        //IEnumerator CompleteCollection()
+        //{
+        //    Debug.Log("Delay 3 seconds");
+        //    yield return new WaitForSeconds(1.0f); // Adjust the duration as per your animation length.
+        //    anim.SetBool("isCollect", false);
+        //    onPlayerCollect.OnEventTriggered.RemoveListener(CoinCollect);
+        //    Debug.Log("Delay 3 seconds");
+        //}
     }
 }

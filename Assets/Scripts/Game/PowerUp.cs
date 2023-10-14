@@ -12,7 +12,7 @@ namespace Microbiopori
 
         private void Start()
         {
-            onPlayerPickPowerup.OnEventTriggered.AddListener()
+            //onPlayerPickPowerup.OnEventTriggered.AddListener();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -30,7 +30,7 @@ namespace Microbiopori
                     playerShield.ActivateShield();
 
                     // Start a coroutine to deactivate the shield after a duration.
-                    StartCoroutine(DeactivateShieldAfterDuration(playerShield));
+                    
                 }
 
                 // Play a power-up sound if specified.
@@ -44,12 +44,6 @@ namespace Microbiopori
             }
         }
 
-        private IEnumerator DeactivateShieldAfterDuration(PlayerShield playerShield)
-        {
-            yield return new WaitForSeconds(duration);
-
-            // Deactivate the shield.
-            playerShield.DeactivateShield();
-        }
+        
     }
 }

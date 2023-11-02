@@ -6,7 +6,6 @@ namespace Microbiopori
     public class PowerUp : MonoBehaviour
     {
         public float duration = 10f; // Duration of the power-up.
-        public AudioClip powerUpSound; // Sound to play when the power-up is picked up.
 
         public GameEvent onPlayerPickPowerup;
 
@@ -31,12 +30,6 @@ namespace Microbiopori
 
                     // Start a coroutine to deactivate the shield after a duration.
                     
-                }
-
-                // Play a power-up sound if specified.
-                if (powerUpSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(powerUpSound, transform.position);
                 }
 
                 // Disable the power-up object.

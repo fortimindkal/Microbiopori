@@ -2,37 +2,82 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject objectToSpawn; // The object to spawn.
-    public Transform[] spawnPoints; // An array of spawn points.
-    public float spawnInterval = 2f; // The time between spawns.
+    public GameObject coinPrefab;
+    public GameObject powerupPrefab;
+    public GameObject obstaclePrefab;
 
-    private float timeSinceLastSpawn = 0f;
+    public Transform[] coinSpawnPoints;
+    public Transform[] powerupSpawnPoints;
+    public Transform[] obstacleSpawnPoints;
+
+    public float coinSpawnInterval = 2f;
+    public float powerupSpawnInterval = 5f;
+    public float obstacleSpawnInterval = 3f;
+
+    private float coinTimeSinceLastSpawn = 0f;
+    private float powerupTimeSinceLastSpawn = 0f;
+    private float obstacleTimeSinceLastSpawn = 0f;
+
+    public float coinSpawnRange = 10f;
+    public float powerupSpawnRange = 15f;
+    public float obstacleSpawnRange = 10f;
 
     private void Update()
     {
-        // Update the timer.
-        timeSinceLastSpawn += Time.deltaTime;
+        SpawnCoins();
+        SpawnPowerups();
+        SpawnObstacles();
+    }
 
-        // Check if it's time to spawn a new object.
-        if (timeSinceLastSpawn >= spawnInterval)
+    private void SpawnCoins()
+    {
+        coinTimeSinceLastSpawn += Time.deltaTime;
+
+        if (coinTimeSinceLastSpawn >= coinSpawnInterval)
         {
-            SpawnObject();
-            timeSinceLastSpawn = 0f; // Reset the timer.
+            if (coinSpawnPoints.Length > 0)
+            {
+                Transform randomSpawnPoint = coinSpawnPoints[Random.Range(0, coinSpawnPoints.Length)];
+                Instantiate(coinPrefab, GetRandomPosition(randomSpawnPoint, coinSpawnRange), randomSpawnPoint.rotation);
+            }
+            coinTimeSinceLastSpawn = 0f;
         }
     }
 
-    private void SpawnObject()
+    private void SpawnPowerups()
     {
-        if (spawnPoints.Length == 0)
+        powerupTimeSinceLastSpawn += Time.deltaTime;
+
+        if (powerupTimeSinceLastSpawn >= powerupSpawnInterval)
         {
-            Debug.LogWarning("No spawn points assigned to the SpawnManager.");
-            return;
+            if (powerupSpawnPoints.Length > 0)
+            {
+                Transform randomSpawnPoint = powerupSpawnPoints[Random.Range(0, powerupSpawnPoints.Length)];
+                Instantiate(powerupPrefab, GetRandomPosition(randomSpawnPoint, powerupSpawnRange), randomSpawnPoint.rotation);
+            }
+            powerupTimeSinceLastSpawn = 0f;
         }
+    }
 
-        // Choose a random spawn point from the array.
-        Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+    private void SpawnObstacles()
+    {
+        obstacleTimeSinceLastSpawn += Time.deltaTime;
 
-        // Instantiate the object at the chosen spawn point.
-        Instantiate(objectToSpawn, randomSpawnPoint.position, randomSpawnPoint.rotation);
+        if (obstacleTimeSinceLastSpawn >= obstacleSpawnInterval)
+        {
+            if (obstacleSpawnPoints.Length > 0)
+            {
+                Transform randomSpawnPoint = obstacleSpawnPoints[Random.Range(0, obstacleSpawnPoints.Length)];
+                Instantiate(obstaclePrefab, GetRandomPosition(randomSpawnPoint, obstacleSpawnRange), randomSpawnPoint.rotation);
+            }
+            obstacleTimeSinceLastSpawn = 0f;
+        }
+    }
+
+    private Vector3 GetRandomPosition(Transform spawnPoint, float range)
+    {
+        Vector3 randomOffset = Random.insideUnitSphere * range;
+        randomOffset.z = 0; // Ensure it's in the same plane as the spawn point.
+        return spawnPoint.position + randomOffset;
     }
 }

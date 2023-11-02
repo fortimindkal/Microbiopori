@@ -20,6 +20,7 @@ namespace Microbiopori
         {
             anim.SetBool("isShield", true);
             isShieldActive = true;
+            AudioManager.instance.Play("CollectingPowerup");
             StartCoroutine(DeactivateShieldAfterDuration(shieldDuration));
             // TODO: Add any visual or gameplay effects for the shield activation.
             Debug.Log("Shield Activated!");

@@ -37,7 +37,7 @@ namespace Microbiopori
                 currentHealth -= damageAmount;
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
                 onPlayerTakeDamage.TriggerEvent();
-
+                AudioManager.instance.Play("CharaHurt");
                 if (currentHealth <= 0)
                 {
                     Die();

@@ -21,12 +21,6 @@ namespace Microbiopori
                     playerHealth.TakeDamage(obstacleData.healthImpact);
                 }
 
-                // Play a collision sound if specified in the ObstacleData.
-                if (obstacleData.collisionSound != null)
-                {
-                    AudioSource.PlayClipAtPoint(obstacleData.collisionSound, transform.position);
-                }
-
                 // Optionally, disable or destroy the obstacle object.
                 //gameObject.SetActive(false); // Disable the obstacle.
                 // Destroy(gameObject); // Destroy the obstacle.

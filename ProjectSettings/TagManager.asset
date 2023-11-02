@@ -6,6 +6,8 @@ TagManager:
   tags:
   - PowerUp
   - Collectible
+  - Obstacle
+  - Pool
   layers:
   - Default
   - TransparentFX

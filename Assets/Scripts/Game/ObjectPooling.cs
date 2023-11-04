@@ -18,16 +18,6 @@ public class ObjectPooling : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.CompareTag("Obstacle"))
-        {
-            Destroy(other.gameObject);
-            Debug.Log("Destroyed");
-        }
-
-        if (other.CompareTag("Enemy"))
-        {
-            Destroy(other.gameObject);
-            Debug.Log("Destroyed");
-        }
+        Destroy(other.gameObject);
     }
 }

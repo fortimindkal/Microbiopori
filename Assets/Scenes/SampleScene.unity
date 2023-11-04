@@ -1023,30 +1023,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 1725349969196814436, guid: c553e0f4dceb2ff448cb30a199d48a3e, type: 3}
   powerupPrefab: {fileID: 4877445270330153167, guid: b76801500c41a3149860e19486502fc1, type: 3}
-  obstaclePrefab: []
+  obstaclePrefab:
+  - {fileID: 1414969898503457959, guid: 7d7f62e1b24b82c49936ef5c18db8716, type: 3}
+  - {fileID: 2643781195950820138, guid: 614ab66ab8f0beb49b6a7dd0d8b6dd1c, type: 3}
+  - {fileID: 1020290143497331676, guid: dd16d14339c21ee41b11ec76b33c2977, type: 3}
+  - {fileID: 9020523989826756037, guid: cab77c59066655344aba667263dffffb, type: 3}
+  - {fileID: 3152848624132762357, guid: 5033a17b17c359646b36d0d8cc8b9573, type: 3}
+  - {fileID: 4625523803577820886, guid: 91f369207aba35e41a7676368974dbe4, type: 3}
+  - {fileID: 3381504083367653742, guid: 8d959ab90258d644885f63e8783351a5, type: 3}
+  - {fileID: 7237052942115067861, guid: 076d68640046f2644a6f19936f5d81f2, type: 3}
+  - {fileID: 237504341042517669, guid: 627940a4d1d0aa648b94aa2215903a80, type: 3}
+  - {fileID: 7382891402114965399, guid: 58455ee5e1da272459d564d69a96377b, type: 3}
+  - {fileID: 9071736918971583945, guid: 4895b39d05bfcb9479b46c5c2456ff12, type: 3}
   enemyPrefab:
   - {fileID: 6905140638851850967, guid: 98aee351df6034245a4da8343d8725d0, type: 3}
   - {fileID: 1493694404208710923, guid: 6dfa4f3dfac44d840a75ad13c00f2660, type: 3}
   coinSpawnPoints:
-  - {fileID: 1451435213}
-  - {fileID: 778889219}
+  - {fileID: 670589009}
   powerupSpawnPoints:
-  - {fileID: 1451435213}
-  - {fileID: 778889219}
+  - {fileID: 670589009}
   obstacleSpawnPoints:
-  - {fileID: 1451435213}
-  - {fileID: 778889219}
+  - {fileID: 670589009}
   enemySpawnPoints:
-  - {fileID: 1451435213}
-  - {fileID: 778889219}
+  - {fileID: 670589009}
   coinSpawnInterval: 2
   powerupSpawnInterval: 5
   obstacleSpawnInterval: 3
   enemySpawnInterval: 3
   coinSpawnRange: 2
-  powerupSpawnRange: 2
-  obstacleSpawnRange: 2
-  enemySpawnRange: 2
+  powerupSpawnRange: 3
+  obstacleSpawnRange: 3
+  enemySpawnRange: 3
 --- !u!4 &548858842
 Transform:
   m_ObjectHideFlags: 0
@@ -1062,6 +1069,7 @@ Transform:
   m_Children:
   - {fileID: 1451435213}
   - {fileID: 778889219}
+  - {fileID: 670589009}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &570684563
@@ -1193,6 +1201,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &670589008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 670589009}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &670589009
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 670589008}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -11.92, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 548858842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &738021039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1397,6 +1436,62 @@ PrefabInstance:
     - target: {fileID: 662505236610742195, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
       propertyPath: m_MaxValue
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1885805935}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Microbiopori.GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 824237991346915255, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1885805935}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PrevPage
+      objectReference: {fileID: 0}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Microbiopori.GameManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 848003832740458549, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1170134000141497287, guid: c056ba507781d2b459471f95b6e1f9b5, type: 3}
       propertyPath: m_IsActive

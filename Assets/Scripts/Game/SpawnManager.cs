@@ -4,29 +4,35 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject coinPrefab;
     public GameObject powerupPrefab;
-    public GameObject obstaclePrefab;
+    public GameObject[] obstaclePrefab;
+    public GameObject[] enemyPrefab;
 
     public Transform[] coinSpawnPoints;
     public Transform[] powerupSpawnPoints;
     public Transform[] obstacleSpawnPoints;
+    public Transform[] enemySpawnPoints;
 
     public float coinSpawnInterval = 2f;
     public float powerupSpawnInterval = 5f;
     public float obstacleSpawnInterval = 3f;
+    public float enemySpawnInterval = 3f;
 
     private float coinTimeSinceLastSpawn = 0f;
     private float powerupTimeSinceLastSpawn = 0f;
     private float obstacleTimeSinceLastSpawn = 0f;
+    private float enemyTimeSinceLastSpawn = 0f;
 
     public float coinSpawnRange = 10f;
     public float powerupSpawnRange = 15f;
     public float obstacleSpawnRange = 10f;
+    public float enemySpawnRange = 10f;
 
     private void Update()
     {
         SpawnCoins();
         SpawnPowerups();
         SpawnObstacles();
+        SpawnEnemy();
     }
 
     private void SpawnCoins()
@@ -68,9 +74,26 @@ public class SpawnManager : MonoBehaviour
             if (obstacleSpawnPoints.Length > 0)
             {
                 Transform randomSpawnPoint = obstacleSpawnPoints[Random.Range(0, obstacleSpawnPoints.Length)];
-                Instantiate(obstaclePrefab, GetRandomPosition(randomSpawnPoint, obstacleSpawnRange), randomSpawnPoint.rotation);
+                GameObject randomObstaclePrefab = obstaclePrefab[Random.Range(0, obstaclePrefab.Length)];
+                Instantiate(randomObstaclePrefab, GetRandomPosition(randomSpawnPoint, obstacleSpawnRange), randomSpawnPoint.rotation);
             }
             obstacleTimeSinceLastSpawn = 0f;
+        }
+    }
+
+    private void SpawnEnemy()
+    {
+        enemyTimeSinceLastSpawn += Time.deltaTime;
+
+        if (enemyTimeSinceLastSpawn >= enemySpawnInterval)
+        {
+            if (enemySpawnPoints.Length > 0)
+            {
+                Transform randomSpawnPoint = enemySpawnPoints[Random.Range(0, enemySpawnPoints.Length)];
+                GameObject randomEnemyPrefab = enemyPrefab[Random.Range(0, enemyPrefab.Length)];
+                Instantiate(randomEnemyPrefab, GetRandomPosition(randomSpawnPoint, enemySpawnRange), randomSpawnPoint.rotation);
+            }
+            enemyTimeSinceLastSpawn = 0f;
         }
     }
 

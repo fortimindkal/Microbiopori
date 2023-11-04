@@ -45,7 +45,7 @@ namespace Microbiopori
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        protected virtual void OnTriggerEnter2D(Collider2D other)
         {
             // Check if the enemy collides with the player.
             if (other.CompareTag("Player"))

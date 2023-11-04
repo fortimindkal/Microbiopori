@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Microbiopori
 {
@@ -9,7 +10,16 @@ namespace Microbiopori
         [SerializeField] private GameObject glosariumUI;
         [SerializeField] private GameObject creditsUI;
 
+        [SerializeField] private Sprite[] glosariumImage;
+        [SerializeField] private string[] glosariumText;
+        [SerializeField] private Image glosariumImageDisplay;
+        [SerializeField] private Text glosariumTextDisplay;
+        [SerializeField] private Button nextPageButton;
+        [SerializeField] private Button prevPageButton;
+
         public string gameSceneName = "GameScene"; // The name of the scene to load when starting the game.
+
+        private int currentPage = 0;
 
         private void Start()
         {
@@ -27,7 +37,7 @@ namespace Microbiopori
         public void StartGame()
         {
             // Load the game scene when the "Start" button is clicked.
-            SceneManager.LoadScene(gameSceneName);
+            SceneManager.LoadScene(1);
         }
 
         // Call this function to quit the game.
@@ -39,7 +49,7 @@ namespace Microbiopori
 
         public void CreditsGame()
         {
-            if(!creditsUI.activeSelf)
+            if (!creditsUI.activeSelf)
             {
                 creditsUI.SetActive(true);
                 mainmenuUI.SetActive(false);
@@ -57,12 +67,51 @@ namespace Microbiopori
             {
                 glosariumUI.SetActive(true);
                 mainmenuUI.SetActive(false);
+                UpdateGlosariumDisplay();
             }
             else
             {
                 glosariumUI.SetActive(false);
                 mainmenuUI.SetActive(true);
             }
+        }
+
+        public void NextPage()
+        {
+            currentPage++;
+            UpdateGlosariumDisplay();
+        }
+
+        public void PrevPage()
+        {
+            currentPage--;
+            UpdateGlosariumDisplay();
+        }
+
+        private void UpdateGlosariumDisplay()
+        {
+            if (currentPage < 0)
+            {
+                currentPage = 0;
+                prevPageButton.interactable = false;
+            }
+            else
+            {
+                prevPageButton.interactable = true;
+            }
+
+            if (currentPage >= glosariumImage.Length - 1)
+            {
+                currentPage = glosariumImage.Length - 1;
+                nextPageButton.interactable = false;
+            }
+            else
+            {
+                nextPageButton.interactable = true;
+            }
+
+            glosariumImageDisplay.sprite = glosariumImage[currentPage];
+            glosariumTextDisplay.text = glosariumText[currentPage];
         }
     }
 }

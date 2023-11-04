@@ -22,8 +22,17 @@ namespace Microbiopori
         [SerializeField] private Text scoreText;
         [SerializeField] private Text resultScoreText;
 
+        [SerializeField] private Sprite[] glosariumImage;
+        [SerializeField] private string[] glosariumText;
+        [SerializeField] private Image glosariumImageDisplay;
+        [SerializeField] private Text glosariumTextDisplay;
+        [SerializeField] private Button nextPageButton;
+        [SerializeField] private Button prevPageButton;
+
         public GameState state;
         private GameState previousState;
+
+        private int currentPage = 0;
 
         private void Awake()
         {
@@ -127,12 +136,52 @@ namespace Microbiopori
             {
                 AudioManager.instance.Play("PopUp");
                 glosariumMenuUI.SetActive(true);
+                UpdateGlosariumDisplay();
             }
             else
             {
                 AudioManager.instance.Play("Tap");
                 glosariumMenuUI.SetActive(false);
+                UpdateGlosariumDisplay();
             }
+        }
+
+        public void NextPage()
+        {
+            currentPage++;
+            UpdateGlosariumDisplay();
+        }
+
+        public void PrevPage()
+        {
+            currentPage--;
+            UpdateGlosariumDisplay();
+        }
+
+        private void UpdateGlosariumDisplay()
+        {
+            if (currentPage < 0)
+            {
+                currentPage = 0;
+                prevPageButton.interactable = false;
+            }
+            else
+            {
+                prevPageButton.interactable = true;
+            }
+
+            if (currentPage >= glosariumImage.Length - 1)
+            {
+                currentPage = glosariumImage.Length - 1;
+                nextPageButton.interactable = false;
+            }
+            else
+            {
+                nextPageButton.interactable = true;
+            }
+
+            glosariumImageDisplay.sprite = glosariumImage[currentPage];
+            glosariumTextDisplay.text = glosariumText[currentPage];
         }
     }
 }

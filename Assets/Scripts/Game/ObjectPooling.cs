@@ -23,5 +23,11 @@ public class ObjectPooling : MonoBehaviour
             Destroy(other.gameObject);
             Debug.Log("Destroyed");
         }
+
+        if (other.CompareTag("Enemy"))
+        {
+            Destroy(other.gameObject);
+            Debug.Log("Destroyed");
+        }
     }
 }

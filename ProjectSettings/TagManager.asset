@@ -8,6 +8,8 @@ TagManager:
   - Collectible
   - Obstacle
   - Pool
+  - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX

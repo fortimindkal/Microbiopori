@@ -17,8 +17,13 @@ namespace Microbiopori
 
         [Header("Game User-Interface")]
         [SerializeField] private GameObject gameOverUI;
+        [SerializeField] private GameObject pauseMenuUI;
+        [SerializeField] private GameObject glosariumMenuUI;
         [SerializeField] private Text scoreText;
         [SerializeField] private Text resultScoreText;
+
+        public GameState state;
+        private GameState previousState;
 
         private void Awake()
         {
@@ -31,7 +36,6 @@ namespace Microbiopori
             {
                 Destroy(gameObject);
             }
-            DontDestroyOnLoad(gameObject);
         }
 
         // Start is called before the first frame update
@@ -48,14 +52,16 @@ namespace Microbiopori
 
         void InitializeGame()
         {
+            state = GameState.Playing;
             gameScore = 0;
+            scoreText.text = gameScore.ToString();
         }
 
         void UpdateScore()
         {
             if (scoreText != null)
             {
-                scoreText.text = "Score: " + gameScore.ToString();
+                scoreText.text = gameScore.ToString();
             }
         }
 
@@ -95,5 +101,45 @@ namespace Microbiopori
         {
             SceneManager.LoadScene(1);
         }
+
+        public void PauseButton()
+        {
+            if (state == GameState.Playing)
+            {
+                AudioManager.instance.Play("PopUp");
+                previousState = state;
+                state = GameState.Paused;
+                Time.timeScale = 0;
+                pauseMenuUI.SetActive(true);
+            }
+            else
+            {
+                AudioManager.instance.Play("Tap");
+                state = previousState;
+                Time.timeScale = 1;
+                pauseMenuUI.SetActive(false);
+            }
+        }
+
+        public void GlosariumButton()
+        {
+            if(!glosariumMenuUI.activeSelf)
+            {
+                AudioManager.instance.Play("PopUp");
+                glosariumMenuUI.SetActive(true);
+            }
+            else
+            {
+                AudioManager.instance.Play("Tap");
+                glosariumMenuUI.SetActive(false);
+            }
+        }
     }
+}
+
+public enum GameState
+{
+    Playing,
+    GameOver,
+    Paused
 }

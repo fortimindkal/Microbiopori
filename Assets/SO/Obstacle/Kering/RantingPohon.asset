@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: RantingPohon
   m_EditorClassIdentifier: 
   obstacleName: Ranting Pohon
-  healthImpact: 2
+  healthImpact: 20

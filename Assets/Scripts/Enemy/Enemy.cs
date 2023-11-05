@@ -39,10 +39,10 @@ namespace Microbiopori
         {
             // Implement enemy death logic here.
             // Play the death sound from the enemyData if specified.
-            if (enemyData.deathSound != null)
-            {
-                AudioSource.PlayClipAtPoint(enemyData.deathSound, transform.position);
-            }
+            //if (enemyData.deathSound != null)
+            //{
+            //    AudioSource.PlayClipAtPoint(enemyData.deathSound, transform.position);
+            //}
         }
 
         protected virtual void OnTriggerEnter2D(Collider2D other)
@@ -50,11 +50,22 @@ namespace Microbiopori
             // Check if the enemy collides with the player.
             if (other.CompareTag("Player"))
             {
-                // Deal damage to the player.
+                // Get the PlayerHealth component (assuming you have one).
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-                if (playerHealth != null)
+                PlayerShield playerShield = other.GetComponent<PlayerShield>();
+
+                if (playerShield.IsShieldActive())
                 {
-                    playerHealth.TakeDamage(enemyData.damage);
+                    playerShield.DeactivateShield();
+                }
+                else
+                {
+                    // Check if the playerHealth is not null.
+                    if (playerHealth != null)
+                    {
+                        // Decrease the player's health based on the obstacle's data.
+                        playerHealth.TakeDamage(enemyData.damage);
+                    }
                 }
 
                 onEnemyAttack.TriggerEvent();

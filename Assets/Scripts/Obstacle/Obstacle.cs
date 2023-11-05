@@ -13,12 +13,20 @@ namespace Microbiopori
             {
                 // Get the PlayerHealth component (assuming you have one).
                 PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                PlayerShield playerShield = other.GetComponent<PlayerShield>();
 
-                // Check if the playerHealth is not null.
-                if (playerHealth != null)
+                if(playerShield.IsShieldActive())
                 {
-                    // Decrease the player's health based on the obstacle's data.
-                    playerHealth.TakeDamage(obstacleData.healthImpact);
+                    playerShield.DeactivateShield();
+                }
+                else
+                {
+                    // Check if the playerHealth is not null.
+                    if (playerHealth != null)
+                    {
+                        // Decrease the player's health based on the obstacle's data.
+                        playerHealth.TakeDamage(obstacleData.healthImpact);
+                    }
                 }
 
                 // Optionally, disable or destroy the obstacle object.

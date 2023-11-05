@@ -16,6 +16,8 @@ namespace Microbiopori
         [SerializeField] private Text glosariumTextDisplay;
         [SerializeField] private Button nextPageButton;
         [SerializeField] private Button prevPageButton;
+        [SerializeField] public Sprite[] audioSprite = new Sprite[2];
+        [SerializeField] public Image audioImage;
 
         public string gameSceneName = "GameScene"; // The name of the scene to load when starting the game.
 
@@ -31,12 +33,14 @@ namespace Microbiopori
             mainmenuUI.SetActive(true);
             glosariumUI.SetActive(false);
             creditsUI.SetActive(false);
+            audioImage.sprite = audioSprite[0];
         }
 
         // Call this function to start the game.
         public void StartGame()
         {
             // Load the game scene when the "Start" button is clicked.
+            AudioManager.instance.Play("Tap");
             SceneManager.LoadScene(1);
         }
 
@@ -44,6 +48,7 @@ namespace Microbiopori
         public void QuitGame()
         {
             // Quit the application if running in standalone build (e.g., Windows, macOS).
+            AudioManager.instance.Play("Tap");
             Application.Quit();
         }
 
@@ -51,13 +56,13 @@ namespace Microbiopori
         {
             if (!creditsUI.activeSelf)
             {
+                AudioManager.instance.Play("PopUp");
                 creditsUI.SetActive(true);
-                mainmenuUI.SetActive(false);
             }
             else
             {
+                AudioManager.instance.Play("Tap");
                 creditsUI.SetActive(false);
-                mainmenuUI.SetActive(true);
             }
         }
 
@@ -65,32 +70,34 @@ namespace Microbiopori
         {
             if (!glosariumUI.activeSelf)
             {
+                AudioManager.instance.Play("PopUp");
                 glosariumUI.SetActive(true);
-                mainmenuUI.SetActive(false);
                 UpdateGlosariumDisplay();
             }
             else
             {
+                AudioManager.instance.Play("Tap");
                 glosariumUI.SetActive(false);
-                mainmenuUI.SetActive(true);
             }
         }
 
         public void NextPage()
         {
+            AudioManager.instance.Play("Tap");
             currentPage++;
             UpdateGlosariumDisplay();
         }
 
         public void PrevPage()
         {
+            AudioManager.instance.Play("Tap");
             currentPage--;
             UpdateGlosariumDisplay();
         }
 
         private void UpdateGlosariumDisplay()
         {
-            if (currentPage < 0)
+            if (currentPage == 0)
             {
                 currentPage = 0;
                 prevPageButton.interactable = false;

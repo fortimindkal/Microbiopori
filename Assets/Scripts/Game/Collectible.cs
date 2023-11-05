@@ -6,7 +6,7 @@ namespace Microbiopori
 {
     public class Collectible : MonoBehaviour
     {
-        public int points = 10; // The number of points the collectible gives to the player when collected.
+        //public int points = 10; // The number of points the collectible gives to the player when collected.
         public int healthIncrease = 1; // The amount to increase the player's health.
 
         public GameEvent onPlayerCollect;
@@ -46,7 +46,7 @@ namespace Microbiopori
 
         public void CoinCollect()
         {
-            GameManager.Instance.AddScore(points);
+            //GameManager.Instance.AddScore(points);
             AudioManager.instance.Play("CollectingGrain");
             Debug.Log("Add Score");
         }   

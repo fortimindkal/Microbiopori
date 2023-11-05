@@ -51,6 +51,11 @@ namespace Microbiopori
         void Start()
         {
             InitializeGame();
+
+            if (state == GameState.Playing)
+            {
+                InvokeRepeating("AddScorePeriodically", 0f, 0.1f);
+            }
         }
 
         // Update is called once per frame
@@ -59,11 +64,20 @@ namespace Microbiopori
             //UpdateScore();
         }
 
+        private void AddScorePeriodically()
+        {
+            if (state == GameState.Playing)
+            {
+                AddScore(1);
+            }
+        }
+
         void InitializeGame()
         {
             state = GameState.Playing;
             gameScore = 0;
             scoreText.text = gameScore.ToString();
+            Time.timeScale = 1;
         }
 
         void UpdateScore()
@@ -86,7 +100,10 @@ namespace Microbiopori
             if (!isGameOver)
             {
                 isGameOver = true;
+                state = GameState.GameOver;
                 ShowGameOverUI();
+                CancelInvoke("AddScorePeriodically"); // Stop adding score when the game is over.
+                Time.timeScale = 0;
                 // Handle any other game over logic, such as stopping gameplay.
             }
         }
@@ -103,11 +120,13 @@ namespace Microbiopori
 
         public void HomeButton()
         {
+            AudioManager.instance.Play("Tap");
             SceneManager.LoadScene(0);
         }
 
         public void RetryButton()
         {
+            AudioManager.instance.Play("Tap");
             SceneManager.LoadScene(1);
         }
 
@@ -148,19 +167,21 @@ namespace Microbiopori
 
         public void NextPage()
         {
+            AudioManager.instance.Play("Tap");
             currentPage++;
             UpdateGlosariumDisplay();
         }
 
         public void PrevPage()
         {
+            AudioManager.instance.Play("Tap");
             currentPage--;
             UpdateGlosariumDisplay();
         }
 
         private void UpdateGlosariumDisplay()
         {
-            if (currentPage < 0)
+            if (currentPage == 0)
             {
                 currentPage = 0;
                 prevPageButton.interactable = false;

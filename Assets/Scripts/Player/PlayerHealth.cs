@@ -12,7 +12,9 @@ namespace Microbiopori
         public GameEvent onPlayerDeathEvent;
         public GameEvent onPlayerTakeDamage;
 
-        private const int maxHealth = 10;
+        private BoxCollider2D boxCollider;
+
+        private const int maxHealth = 20;
 
         private void Start()
         {
@@ -28,6 +30,7 @@ namespace Microbiopori
         {
             currentHealth = maxHealth;
             healthSlider.value = currentHealth;
+            boxCollider = GetComponent<BoxCollider2D>();
         }
 
         public void TakeDamage(int damageAmount)
@@ -36,10 +39,12 @@ namespace Microbiopori
             {
                 currentHealth -= damageAmount;
                 currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+                healthSlider.value -= damageAmount;
                 onPlayerTakeDamage.TriggerEvent();
                 AudioManager.instance.Play("CharaHurt");
                 if (currentHealth <= 0)
                 {
+                    boxCollider.enabled = false;
                     Die();
                 }
             }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c287c0330f6d9c46b03c86f79d64a86, type: 3}
   m_Name: SerabutKayu
   m_EditorClassIdentifier: 
-  obstacleName: 
-  healthImpact: 0
+  obstacleName: Serabut Kayu
+  healthImpact: 20

@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Microbiopori
 {
-    public class Jamur : Enemy
+    public abstract class Jamur : Enemy
     {
         private bool moveRight = true; // Flag to control the movement direction.
 

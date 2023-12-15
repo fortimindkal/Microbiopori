@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Microbiopori
 {
-    public class SlimeEnemy : Enemy
+    public abstract class SlimeEnemy : Enemy
     {
         protected override void Start()
         {

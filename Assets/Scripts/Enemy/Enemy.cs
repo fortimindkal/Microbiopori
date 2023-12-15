@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Microbiopori
 {
-    public class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour
     {
         public EnemyData enemyData; // Reference to the EnemyData Scriptable Object.
 

@@ -65,6 +65,7 @@ namespace Microbiopori
         private void Die()
         {
             // Trigger the player death UnityEvent.
+            GameManager.Instance.state = GameState.GameOver;
             onPlayerDeathEvent.TriggerEvent();
         }
 

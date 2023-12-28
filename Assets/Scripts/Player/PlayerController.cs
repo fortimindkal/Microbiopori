@@ -6,6 +6,11 @@ namespace Microbiopori
     public class PlayerController : MonoBehaviour
     {
         public float moveSpeed = 5f; // Adjust the player's movement speed in the Inspector.
+        public FloatingJoystick joystick;
+
+        public Canvas inputCanvas;
+        public bool isJoystick;
+
         private Rigidbody2D rb;
         private Animator anim;
         private float horizontalInput;
@@ -20,10 +25,15 @@ namespace Microbiopori
             anim = GetComponent<Animator>();
         }
 
+        private void Start()
+        {
+            EnableJoystickInput();
+        }
+
         private void Update()
         {
             // Handle touch input.
-            HandleTouchInput();
+            //HandleTouchInput();
 
             // Get horizontal input from the player (e.g., left and right arrow keys or A and D keys).
             // Only use this input if no swipe is detected.
@@ -32,7 +42,19 @@ namespace Microbiopori
                 horizontalInput = Input.GetAxis("Horizontal");
             }
 
+            if(isJoystick)
+            {
+                horizontalInput = joystick.Horizontal;
+                Move(horizontalInput);
+            }
+
             MoveAnimation();
+        }
+
+        public void EnableJoystickInput()
+        {
+            isJoystick = true;
+            inputCanvas.gameObject.SetActive(true);
         }
 
         private void MoveAnimation()
@@ -69,7 +91,7 @@ namespace Microbiopori
 
         public void SetPlayerDead()
         {
-            anim.SetTrigger("isDead");
+            //anim.SetTrigger("isDead");
             StartCoroutine(SetupPlayerCompleteDead());
         }
 
@@ -98,6 +120,7 @@ namespace Microbiopori
         public IEnumerator SetupPlayerCompleteDead()
         {
             Debug.Log("Delay 3 seconds");
+            anim.SetTrigger("isDead");
             yield return new WaitForSeconds(1.0f); // Adjust the duration as per your animation length.
             GameManager.Instance.GameOver();
         }

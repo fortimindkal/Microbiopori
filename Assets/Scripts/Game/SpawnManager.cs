@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 namespace Microbiopori
 {
@@ -35,17 +36,121 @@ namespace Microbiopori
         public float[] obstacleSpawnIntervals; // Array of possible spawn intervals for obstacles.
         private float obstacleTimeSinceLastSpawn = 0f;
 
+        private bool isDoubleTap = false;
+        private float doubleTapTimeThreshold = 0.3f; // Adjust the threshold as needed
+        private float timeSinceLastTap = 0f;
+        private bool isResetting = false;
+        public float resetTimer = 0f;
+        private float resetDelay = 2f; // Delay before resetting double tap and values
+
         private void Update()
         {
-            if(GameManager.Instance.state == GameState.Playing)
+            if (GameManager.Instance.state == GameState.Playing)
             {
+                HandleDoubleTap();
                 SpawnCoins();
                 SpawnPowerups();
                 SpawnObstacles();
                 SpawnEnemy();
                 SpawnWorms(); // Add this line.
             }
+
+            if (isResetting)
+            {
+                resetTimer += Time.deltaTime;
+
+                if (resetTimer >= resetDelay)
+                {
+                    isResetting = false;
+                    resetTimer = 0f;
+
+                    // Reset gravity and scroll background speed to default values
+                    ResetGravity("Collectible");
+                    ResetGravity("Obstacle");
+                    ResetGravity("Enemy");
+                    ResetGravity("PowerUp");
+
+                    ScrollBackground sb = FindAnyObjectByType<ScrollBackground>();
+                    sb.scrollSpeed = 4f; // Assuming 1f is the default scroll speed
+                }
+            }
         }
+
+        private void HandleDoubleTap()
+        {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    if (IsDoubleTap())
+                    {
+                        Debug.Log("Double Tap Detected!");
+
+                        // Find and modify the gravity of objects with specific tags
+                        ModifyGravity("Collectible");
+                        ModifyGravity("Obstacle");
+                        ModifyGravity("Enemy");
+                        ModifyGravity("PowerUp");
+
+                        ScrollBackground sb = FindAnyObjectByType<ScrollBackground>();
+                        sb.scrollSpeed = 2f;
+
+                        // Start the reset process
+                        StartReset();
+                    }
+                }
+            }
+        }
+
+        private void StartReset()
+        {
+            isResetting = true;
+        }
+
+        private bool IsDoubleTap()
+        {
+            if (Time.time - timeSinceLastTap < doubleTapTimeThreshold)
+            {
+                timeSinceLastTap = 0f; // Reset the timer
+                return true;
+            }
+
+            timeSinceLastTap = Time.time;
+            return false;
+        }
+
+        private void ResetGravity(string tag)
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+
+            foreach (GameObject obj in objects)
+            {
+                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    // Reset the gravity or other properties as needed
+                    rb.gravityScale = -1f; // Assuming 1f is the default gravity scale
+                }
+            }
+        }
+
+        private void ModifyGravity(string tag)
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+
+            foreach (GameObject obj in objects)
+            {
+                Rigidbody2D rb = obj.GetComponent<Rigidbody2D>();
+                if (rb != null)
+                {
+                    // Modify the gravity or other properties as needed
+                    rb.gravityScale = -0.1f; // Adjust the value as needed
+                }
+            }
+        }
+
 
         private void SpawnCoins()
         {

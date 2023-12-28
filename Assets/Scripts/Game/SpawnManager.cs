@@ -41,7 +41,7 @@ namespace Microbiopori
         private float timeSinceLastTap = 0f;
         private bool isResetting = false;
         public float resetTimer = 0f;
-        private float resetDelay = 2f; // Delay before resetting double tap and values
+        public float resetDelay = 2f; // Delay before resetting double tap and values
 
         private void Update()
         {

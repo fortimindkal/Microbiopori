@@ -13,6 +13,7 @@ namespace Microbiopori
 
         [Header("Game Parameters")]
         [SerializeField] private int gameScore;
+        [SerializeField] private int highScore; // New high score variable
         [SerializeField] private bool isGameOver = false;
 
         [Header("Game User-Interface")]
@@ -21,6 +22,7 @@ namespace Microbiopori
         [SerializeField] private GameObject glosariumMenuUI;
         [SerializeField] private Text scoreText;
         [SerializeField] private Text resultScoreText;
+        [SerializeField] private Text highScoreText; // UI element for displaying high score
 
         [SerializeField] private Sprite[] glosariumImage;
         [SerializeField] private string[] glosariumText;
@@ -45,6 +47,8 @@ namespace Microbiopori
             {
                 Destroy(gameObject);
             }
+
+            LoadHighScore(); // Load the high score when the game starts
         }
 
         // Start is called before the first frame update
@@ -77,6 +81,8 @@ namespace Microbiopori
             state = GameState.Playing;
             gameScore = 0;
             scoreText.text = gameScore.ToString();
+            highScore = PlayerPrefs.GetInt("HighScore", 0); // Load high score from PlayerPrefs
+            UpdateHighScoreUI();
             Time.timeScale = 1;
         }
 
@@ -92,6 +98,14 @@ namespace Microbiopori
         {
             gameScore += score;
             UpdateScore();
+
+            // Update high score if the current score surpasses it
+            if (gameScore > highScore)
+            {
+                highScore = gameScore;
+                UpdateHighScoreUI();
+                SaveHighScore(); // Save high score to PlayerPrefs
+            }
         }
 
         // Call this function to handle game over logic.
@@ -114,7 +128,8 @@ namespace Microbiopori
             if (gameOverUI != null)
             {
                 gameOverUI.SetActive(true);
-                resultScoreText.text = scoreText.text;
+                resultScoreText.text = "Score: " + gameScore.ToString();
+                UpdateHighScoreUI(); // Update the high score UI when the game is over
             }
         }
 
@@ -203,6 +218,26 @@ namespace Microbiopori
 
             glosariumImageDisplay.sprite = glosariumImage[currentPage];
             glosariumTextDisplay.text = glosariumText[currentPage];
+        }
+
+        private void UpdateHighScoreUI()
+        {
+            if (highScoreText != null)
+            {
+                highScoreText.text = "High Score: " + highScore.ToString();
+            }
+        }
+
+        private void SaveHighScore()
+        {
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save(); // Save PlayerPrefs to disk
+        }
+
+        private void LoadHighScore()
+        {
+            highScore = PlayerPrefs.GetInt("HighScore", 0);
+            UpdateHighScoreUI();
         }
     }
 }

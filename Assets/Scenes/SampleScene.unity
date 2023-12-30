@@ -966,7 +966,7 @@ MonoBehaviour:
   coinSpawnInterval: 1.2
   powerupSpawnInterval: 60
   enemySpawnInterval: 30
-  wormSpawnInterval: 40
+  wormSpawnInterval: 30
   coinSpawnRange: 2
   powerupSpawnRange: 3
   enemySpawnRange: 3
@@ -1913,11 +1913,6 @@ RectTransform:
   m_AnchoredPosition: {x: 63.742004, y: -50.75322}
   m_SizeDelta: {x: -17.807, y: 117.4954}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1218522070 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6330084455115217722, guid: efc512b7ab4ab7a45aecaf5d5ada36bc, type: 3}
-  m_PrefabInstance: {fileID: 209889388}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1256504009
 GameObject:
   m_ObjectHideFlags: 0
@@ -2995,13 +2990,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7356d6b943bcf447827ba0e0f17c8eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bgimage: {fileID: 0}
-  Joystickimage: {fileID: 0}
-  InputDir: {x: 0, y: 0}
-  offset: 2
-  ObjekGerak: {fileID: 1218522070}
-  SpeedMax: 6
-  Zaxis: 0
 --- !u!114 &1885805935 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8081308590981242944, guid: 964e152c0ed1bbb4db65f8f896a1eaf8, type: 3}
@@ -5180,7 +5168,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8282855881175248998}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1885805935}
+        m_TargetAssemblyTypeName: Microbiopori.GameManager, Assembly-CSharp
+        m_MethodName: HomeButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3585497998205039037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7469,7 +7469,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 334019781751031091}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1885805935}
+        m_TargetAssemblyTypeName: Microbiopori.GameManager, Assembly-CSharp
+        m_MethodName: RetryButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &8683691722177322077
 RectTransform:
   m_ObjectHideFlags: 0

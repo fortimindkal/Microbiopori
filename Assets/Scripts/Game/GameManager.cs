@@ -128,7 +128,7 @@ namespace Microbiopori
             if (gameOverUI != null)
             {
                 gameOverUI.SetActive(true);
-                resultScoreText.text = "Score: " + gameScore.ToString();
+                resultScoreText.text = gameScore.ToString();
                 UpdateHighScoreUI(); // Update the high score UI when the game is over
             }
         }
@@ -224,7 +224,7 @@ namespace Microbiopori
         {
             if (highScoreText != null)
             {
-                highScoreText.text = "High Score: " + highScore.ToString();
+                highScoreText.text = highScore.ToString();
             }
         }
 
